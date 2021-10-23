@@ -1,6 +1,3 @@
-for (let i = 0; i < 5; i++) {
-    console.log(i);
-    debugger;
-}
-console.log("hi");
+const ENV = require('./util/const');
 
+console.info(ENV);
