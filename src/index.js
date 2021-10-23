@@ -25,6 +25,13 @@ const main = async () => {
     console.log("migration successful");
   });
 
+  await db.Item.create({
+      name: "Lemon",
+      description: "Organic fruit.",
+      price: 100,
+      quantity: 5,
+  });
+
   //   _____  ___ __  _ __ ___  ___ ___
   //  / _ \ \/ / '_ \| '__/ _ \/ __/ __|
   // |  __/>  <| |_) | | |  __/\__ \__ \

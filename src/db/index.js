@@ -1,7 +1,6 @@
 const ENV = require("../util/const");
 
 const { Sequelize, DataTypes } = require("sequelize");
-const { __DB_DIALECT__ } = require("../util/const");
 
 const sequelize = new Sequelize(
   ENV.__DB_NAME__,
@@ -10,7 +9,7 @@ const sequelize = new Sequelize(
   {
     host: ENV.__DB_HOST__,
     port: ENV.__DB_PORT__,
-    dialect: __DB_DIALECT__,
+    dialect: ENV.__DB_DIALECT__,
   }
 );
 
@@ -20,6 +19,7 @@ const Item = sequelize.define(
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER,
   },
   {
     timestamps: false,
