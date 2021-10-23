@@ -1,0 +1,4 @@
+node_modules/
+bookmarks.db
+package-lock.json
+.env
