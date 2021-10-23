@@ -26,10 +26,17 @@ const main = async () => {
   });
 
   await db.Item.create({
-      name: "Lemon",
-      description: "Organic fruit.",
-      price: 100,
-      quantity: 5,
+    name: "Lemon",
+    description: "Organic fruit.",
+    price: 100,
+    quantity: 5,
+  });
+
+  await db.Item.create({
+    name: "Banana",
+    description: "Organic fruit.",
+    price: 200,
+    quantity: 10,
   });
 
   //   _____  ___ __  _ __ ___  ___ ___
@@ -47,6 +54,13 @@ const main = async () => {
     res.send("hello");
   }
   app.get("/test", test);
+
+  function getItems(req, res) {
+    db.Item.findAll().then((items) => {
+      res.json(items);
+    });
+  }
+  app.get("/items", getItems);
 
   app.listen(ENV.__EXPRESS_PORT__, () => {
     console.info(`running on port ${ENV.__EXPRESS_PORT__}`);
