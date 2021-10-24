@@ -25,6 +25,11 @@ const main = async () => {
     console.log("migration successful");
   });
 
+  await db.Account.create({
+    username: "wyatt",
+    password: "pass",
+  });
+
   await db.Item.create({
     name: "Lemon",
     description: "Organic fruit.",
@@ -35,6 +40,18 @@ const main = async () => {
     name: "Banana",
     description: "Organic fruit.",
     price: 200,
+  });
+
+  await db.AccountItem.create({
+    account_id: 1,
+    item_id: 1,
+    quantity: 33,
+  });
+
+  await db.AccountItem.create({
+    account_id: 1,
+    item_id: 2,
+    quantity: 55,
   });
 
   //   _____  ___ __  _ __ ___  ___ ___
@@ -59,6 +76,18 @@ const main = async () => {
     });
   }
   app.get("/items", getItems);
+
+  function getAccount(req, res) {
+    db.Account.findOne({
+      where: {
+        username: req.params.username,
+      },
+      include: db.Item,
+    }).then((account) => {
+      res.json(account);
+    });
+  }
+  app.get("/accounts/:username", getAccount);
 
   app.listen(ENV.__EXPRESS_PORT__, () => {
     console.info(`running on port ${ENV.__EXPRESS_PORT__}`);
