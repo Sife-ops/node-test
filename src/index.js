@@ -65,11 +65,6 @@ const main = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
-  function test(req, res) {
-    res.send("hello");
-  }
-  app.get("/test", test);
-
   function getItems(req, res) {
     db.Item.findAll().then((items) => {
       res.json(items);
