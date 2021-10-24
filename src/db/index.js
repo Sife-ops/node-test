@@ -13,12 +13,32 @@ const sequelize = new Sequelize(
   }
 );
 
+const Account = sequelize.define(
+  "account",
+  {
+    username: DataTypes.STRING,
+    password: DataTypes.STRING,
+  },
+  {
+    timestamps: false,
+  }
+);
+
 const Item = sequelize.define(
   "item",
   {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.INTEGER,
+  },
+  {
+    timestamps: false,
+  }
+);
+
+const AccountItem = sequelize.define(
+  "account_item",
+  {
     quantity: DataTypes.INTEGER,
   },
   {
@@ -26,9 +46,14 @@ const Item = sequelize.define(
   }
 );
 
+Account.belongsToMany(Item, { through: AccountItem, foreignKey: "account_id" });
+Item.belongsToMany(Account, { through: AccountItem, foreignKey: "item_id" });
+
 const db = {};
 
+db.Account = Account;
 db.Item = Item;
+db.AccountItem = AccountItem;
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 

@@ -29,14 +29,12 @@ const main = async () => {
     name: "Lemon",
     description: "Organic fruit.",
     price: 100,
-    quantity: 5,
   });
 
   await db.Item.create({
     name: "Banana",
     description: "Organic fruit.",
     price: 200,
-    quantity: 10,
   });
 
   //   _____  ___ __  _ __ ___  ___ ___
