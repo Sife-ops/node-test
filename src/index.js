@@ -73,16 +73,18 @@ const main = async () => {
   app.get("/items", getItems);
 
   function getAccount(req, res) {
-    db.Account.findOne({
-      where: {
-        username: req.params.username,
-      },
-      include: db.Item,
-    }).then((account) => {
-      res.json(account);
-    });
+    db.Account.findByPk(req.params.accountId, { include: db.Item }).then(
+      (account) => {
+        res.json(account);
+      }
+    );
   }
-  app.get("/accounts/:username", getAccount);
+  app.get("/accounts/:accountId", getAccount);
+
+  function updateQuantity(req, res) {
+    res.send("hello");
+  }
+  app.put("/accounts/:accountId/:itemId/:action/:quantity", updateQuantity);
 
   app.listen(ENV.__EXPRESS_PORT__, () => {
     console.info(`running on port ${ENV.__EXPRESS_PORT__}`);
