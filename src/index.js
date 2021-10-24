@@ -81,10 +81,23 @@ const main = async () => {
   }
   app.get("/accounts/:accountId", getAccount);
 
-  function updateQuantity(req, res) {
-    res.send("hello");
+  function updateItemQuantity(req, res) {
+    db.AccountItem.update(
+      { quantity: req.params.quantity },
+      {
+        where: {
+          account_id: req.params.accountId,
+          item_id: req.params.itemId,
+        },
+      }
+    ).then(() => {
+      res.sendStatus(200);
+    });
   }
-  app.put("/accounts/:accountId/:itemId/:action/:quantity", updateQuantity);
+  app.put(
+    "/accounts/:accountId/:itemId/quantity/:quantity",
+    updateItemQuantity
+  );
 
   app.listen(ENV.__EXPRESS_PORT__, () => {
     console.info(`running on port ${ENV.__EXPRESS_PORT__}`);
